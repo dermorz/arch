@@ -18,6 +18,7 @@ dialog --defaultno --title "!!! WARNING !!!" --yesno "This script will delete al
 
 Do you really want to continue?" 0 0 || exit 0
 
+
 #
 # PRE-SETUP
 #
@@ -65,11 +66,14 @@ TIMEZONE=$(dialog --stdout --inputbox "Enter timezone" 0 0 "Europe/Berlin") || e
 clear
 : ${TIMEZONE:?"Please specify a value!"}
 
-echo HOSTNAME :: ${HOSTNAME}
-echo USERNAME :: ${USERNAME}
-echo DEVICE :: ${DEVICE}
-echo SWAP_SIZE :: ${SWAP_SIZE}
-echo TIMEZONE :: ${TIMEZONE}
+dialog --defaultno --title "VERIFY INPUT" --yesno "
+HOSTNAME  :: ${HOSTNAME}
+USERNAME  :: ${USERNAME}
+DEVICE    :: ${DEVICE}
+SWAP_SIZE :: ${SWAP_SIZE}
+TIMEZONE  :: ${TIMEZONE}
+
+Is that correct?" 0 0 || exit 0
 
 
 #
