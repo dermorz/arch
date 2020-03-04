@@ -14,9 +14,7 @@ function chroot {
 #
 # WARNING
 #
-dialog --yesno "WARNING!!!
-
-This script will delete all data on the chosen storage device.
+dialog --defaultno --title "!!! WARNING !!!" --yesno "This script will delete all data on the chosen storage device.
 
 Do you really want to continue?" 0 0 || exit 0
 
