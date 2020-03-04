@@ -42,9 +42,9 @@ clear
 USER_PASSWORD=$(dialog --stdout --insecure --passwordbox "Enter password" 0 0) || exit 1
 clear
 : ${USER_PASSWORD:?"Please specify a value!"}
-USER_PASSWORD2=$(dialog --stdout --insecure --passwordbox "Enter password again" 0 0) || exit 1
+VERIFY_USER_PASSWORD=$(dialog --stdout --insecure --passwordbox "Enter password again" 0 0) || exit 1
 clear
-[[ "$USER_PASSWORD" == "$USER_PASSWORD2" ]] || ( echo "Password mismatch"; exit 1; )
+[[ "$USER_PASSWORD" == "$VERIFY_USER_PASSWORD" ]] || ( echo "Password mismatch"; exit 1; )
 
 _list=$(lsblk -dplnx size -o name,size | grep -Ev "boot|rpmb|loop" | tac)
 DEVICE=$(dialog --stdout --menu "Select device" 0 0 0 ${_list}) || exit 1
@@ -57,9 +57,9 @@ clear
 DEVICE_PASSWORD=$(dialog --stdout --insecure --passwordbox "Enter LUKS password" 0 0) || exit 1
 clear
 : ${DEVICE_PASSWORD:?"Please specify a value!"}
-DEVICE_PASSWORD2=$(dialog --stdout --insecure --passwordbox "Enter LUKS password again" 0 0) || exit 1
+VERIFY_DEVICE_PASSWORD=$(dialog --stdout --insecure --passwordbox "Enter LUKS password again" 0 0) || exit 1
 clear
-[[ "$DEVICE_PASSWORD" == "$DEVICE_PASSWORD2" ]] || ( echo "LUKS password mismatch"; exit 1; )
+[[ "$DEVICE_PASSWORD" == "$VERIFY_DEVICE_PASSWORD" ]] || ( echo "LUKS password mismatch"; exit 1; )
 
 TIMEZONE=$(dialog --stdout --inputbox "Enter timezone" 0 0 "Europe/Berlin") || exit 1
 clear
