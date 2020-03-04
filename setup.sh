@@ -166,3 +166,6 @@ echo '%wheel ALL=(ALL) ALL' > /mnt/etc/sudoers.d/wheel
 
 chroot useradd -m -G wheel -s /usr/bin/zsh ${USERNAME}
 echo "${USERNAME}:${USER_PASSWORD}" | chpasswd --root /mnt
+
+# Disable root login
+passwd --root /mnt -l root
