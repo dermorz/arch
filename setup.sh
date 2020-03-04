@@ -27,7 +27,6 @@ timedatectl set-ntp true
 timedatectl status
 loadkeys de-latin1
 
-pacman -Sy --noconfirm pacman-contrib
 
 #
 # INPUT
@@ -76,6 +75,12 @@ TIMEZONE  :: ${TIMEZONE}
 Is that correct?" 0 0 || exit 0
 
 
+# Update pacman mirrorlist
+pacman -Sy --noconfirm pacman-contrib
+curl -sL "${MIRRORLIST_URL}" | \
+	sed -e 's/^#Server/Server/' -e '/^#/d' | \
+	rankmirrors -n 5 - > /etc/pacman.d/mirrorlist
+
 #
 # DISK LAYOUT
 #
@@ -122,12 +127,6 @@ swapon /dev/arch/swap
 #
 # SETUP
 #
-curl -sL "${MIRRORLIST_URL}" | \
-	sed -e 's/^#Server/Server/' -e '/^#/d' | \
-	rankmirrors -n 5 - > /etc/pacman.d/mirrorlist
-
-pacstrap /mnt base base-devel linux linux-firmware grub efibootmgr neovim zsh git lvm2
-
 genfstab -U /mnt >> /mnt/etc/fstab
 
 chroot ln -sf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime
@@ -162,6 +161,8 @@ LC_TIME=de_DE.UTF-8
 EOF
 
 chroot locale-gen
+
+pacstrap /mnt base base-devel linux linux-firmware grub efibootmgr neovim zsh git lvm2
 
 # https://wiki.archlinux.org/index.php/Dm-crypt/Encrypting_an_entire_system#LVM_on_LUKS
 # https://wiki.archlinux.org/index.php/Dm-crypt/System_configuration
