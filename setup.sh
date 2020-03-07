@@ -65,14 +65,14 @@ TIMEZONE=$(dialog --stdout --inputbox "Enter timezone" 0 0 "Europe/Berlin") || e
 clear
 : ${TIMEZONE:?"Please specify a value!"}
 
-dialog --defaultno --title "VERIFY INPUT" --yesno "
-HOSTNAME  :: ${HOSTNAME}
-USERNAME  :: ${USERNAME}
-DEVICE    :: ${DEVICE}
-SWAP_SIZE :: ${SWAP_SIZE}
-TIMEZONE  :: ${TIMEZONE}
+dialog --defaultno --no-collapse --title "VERIFY INPUT" --yesno \
+"HOSTNAME:	${HOSTNAME}
+USERNAME:	${USERNAME}
+DEVICE:	${DEVICE}
+SWAP_SIZE:	${SWAP_SIZE}
+TIMEZONE:	${TIMEZONE}
 
-Is that correct?" 0 0 || exit 0
+Is that correct?" 10 40 || exit 0
 
 
 # Update pacman mirrorlist
