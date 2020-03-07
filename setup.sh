@@ -127,6 +127,8 @@ swapon /dev/arch/swap
 #
 # SETUP
 #
+pacstrap /mnt base base-devel linux linux-firmware grub efibootmgr neovim zsh git lvm2
+
 genfstab -U /mnt >> /mnt/etc/fstab
 
 chroot ln -sf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime
@@ -161,8 +163,6 @@ LC_TIME=de_DE.UTF-8
 EOF
 
 chroot locale-gen
-
-pacstrap /mnt base base-devel linux linux-firmware grub efibootmgr neovim zsh git lvm2
 
 # https://wiki.archlinux.org/index.php/Dm-crypt/Encrypting_an_entire_system#LVM_on_LUKS
 # https://wiki.archlinux.org/index.php/Dm-crypt/System_configuration
