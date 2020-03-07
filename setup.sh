@@ -72,7 +72,7 @@ DEVICE:	${DEVICE}
 SWAP_SIZE:	${SWAP_SIZE}
 TIMEZONE:	${TIMEZONE}
 
-Is that correct?" 10 40 || exit 0
+Is that correct?" 12 40 || exit 0
 
 
 # Update pacman mirrorlist
