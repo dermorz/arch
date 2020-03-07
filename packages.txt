@@ -83,7 +83,6 @@ otf-fira-code
 ttf-dejavu
 
 // Misc tools
-aerc
 engrampa
 firefox
 flameshot
