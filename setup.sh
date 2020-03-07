@@ -182,3 +182,7 @@ echo "${USERNAME}:${USER_PASSWORD}" | chpasswd --root /mnt
 
 # Disable root login
 passwd --root /mnt -l root
+
+# Install packages
+cp packages.txt /mnt/tmp
+chroot grep -v -E "//|^$" /tmp/packages.txt | pacman -S --needed --noconfirm -
