@@ -184,5 +184,18 @@ echo "${USERNAME}:${USER_PASSWORD}" | chpasswd --root /mnt
 passwd --root /mnt -l root
 
 # Install packages
-cp packages.txt /mnt/tmp
-chroot grep -v -E "//|^$" /tmp/packages.txt | pacman -S --needed --noconfirm -
+cp packages.txt /mnt
+chroot grep -v -E "//|^$" packages.txt | pacman -S --needed --noconfirm -
+
+# LightDM autologin
+chroot groupadd -r autologin
+chroot gpasswd -a ${USERNAME} autologin
+chroot sed -i "s/^#\(autologin-user=\)$/\1${USERNAME}/" /etc/lightdm/lightdm.conf
+
+# Docker without sudo
+chroot gpasswd -a ${USERNAME} docker
+
+# light
+chroot gpasswd -a ${USERNAME} video
+
+chroot systemctl enable NetworkManager lightdm systemd-timesyncd tlp docker
