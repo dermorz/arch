@@ -48,9 +48,7 @@ git
 hexyl
 htop
 httpie
-ipython
 jq
-k9s
 kubectl
 lsof
 meld
