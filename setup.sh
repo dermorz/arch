@@ -184,8 +184,7 @@ echo "${USERNAME}:${USER_PASSWORD}" | chpasswd --root /mnt
 passwd --root /mnt -l root
 
 # Install packages
-cp packages.txt /mnt
-chroot grep -v -E "//|^$" packages.txt | pacman -S --needed --noconfirm -
+grep -v -E "//|^$" packages.txt | chroot pacman -S --needed --noconfirm -
 
 # LightDM autologin
 chroot groupadd -r autologin
